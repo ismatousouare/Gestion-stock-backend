@@ -17,6 +17,7 @@ public class UserController {
     public UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
+
     @PostMapping
     public ResponseEntity <User> createUser(@RequestBody User user){
         User newUser = userServiceImpl.saveUser(user);

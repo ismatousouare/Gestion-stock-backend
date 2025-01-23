@@ -1,16 +1,13 @@
 package com.example.Gestion_stock_management.model;
 
-import jakarta.validation.constraints.Email;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-@Document(collection = "Users")
+
+@Document
 @Data
-public class User {
+public class Role {
     @Id
     private String id;
-    private String username;
-    private String password;
-    private String email;
-    private Role role;
+    private String name;
 }
