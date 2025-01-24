@@ -1,7 +1,5 @@
 name: Construire et publier l'image Docker
 
-on : 
-  [push]
 jobs:
   build:
     runs-on: ubuntu-latest
