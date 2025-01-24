@@ -1,11 +1,10 @@
 package com.example.Gestion_stock_management.service;
 
 import com.example.Gestion_stock_management.model.Produit;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ProduitService {
+public interface ProductService {
 
     Produit addProduit(Produit produit);
     Produit updateProduit(String id, Produit produit);

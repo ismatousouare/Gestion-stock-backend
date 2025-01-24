@@ -2,67 +2,67 @@ package com.example.Gestion_stock_management.ServiceImpl;
 
 import com.example.Gestion_stock_management.exception.ResourceNotFoundException;
 import com.example.Gestion_stock_management.model.Produit;
-import com.example.Gestion_stock_management.repository.ProduitRepository;
-import com.example.Gestion_stock_management.service.ProduitService;
+import com.example.Gestion_stock_management.repository.ProductRepository;
+import com.example.Gestion_stock_management.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProduitServiceImpl implements ProduitService {
-    private final ProduitRepository produitRepository;
+public class ProductServiceImpl implements ProductService {
+    private final ProductRepository productRepository;
 
-    public ProduitServiceImpl(ProduitRepository produitRepository) {
-        this.produitRepository = produitRepository;
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
     public Produit addProduit(Produit produit) {
-        Optional<Produit> existingProduct = produitRepository.findByNomAndDescriptionAndCategorie(
+        Optional<Produit> existingProduct = productRepository.findByNomAndDescriptionAndCategorie(
                 produit.getNom(), produit.getDescription(), produit.getCategorie());
 
         if (existingProduct.isPresent()) {
             Produit existing = existingProduct.get();
             existing.setQuantite(existing.getQuantite() + produit.getQuantite());
-            return produitRepository.save(existing);
+            return productRepository.save(existing);
         } else {
-            return produitRepository.save(produit);
+            return productRepository.save(produit);
         }
 
     }
 
     @Override
     public Produit updateProduit(String id, Produit produit) {
-        Optional<Produit> produitExist= produitRepository.findById(id);
+        Optional<Produit> produitExist= productRepository.findById(id);
 
         Produit exist = produitExist.orElseThrow(()->new ResourceNotFoundException("Product not exist"));
         exist.setNom(produit.getNom());
         exist.setPrix(produit.getPrix());
         exist.setCategorie(produit.getCategorie());
         exist.setQuantite(produit.getQuantite());
-        return produitRepository.save(exist);
+        return productRepository.save(exist);
     }
 
     @Override
     public void deleteProduit(String id) {
-        Optional<Produit> existingProduct = produitRepository.findById(id);
+        Optional<Produit> existingProduct = productRepository.findById(id);
         if (existingProduct.isPresent()) {
-            produitRepository.deleteById(id);
+            productRepository.deleteById(id);
         } else {
             throw new RuntimeException("Product not found");
         }
     }
     @Override
     public void deleteProduitWithQuantity(String id, int quantiteToRemove) {
-        Optional<Produit> existingProduct = produitRepository.findById(id);
+        Optional<Produit> existingProduct = productRepository.findById(id);
         if (existingProduct.isPresent()) {
             Produit product = existingProduct.get();
             if (product.getQuantite() <= quantiteToRemove) {
-                produitRepository.deleteById(id);
+                productRepository.deleteById(id);
             } else {
                 product.setQuantite(product.getQuantite() - quantiteToRemove);
-                produitRepository.save(product);
+                productRepository.save(product);
             }
         } else {
             throw new RuntimeException("Product not found");
@@ -76,9 +76,9 @@ public class ProduitServiceImpl implements ProduitService {
 
     @Override
     public void deleteProduitByNom(String nom) {
-        List<Produit> products = produitRepository.findByNom(nom);
+        List<Produit> products = productRepository.findByNom(nom);
         if (!products.isEmpty()) {
-            produitRepository.deleteAll(products);
+            productRepository.deleteAll(products);
         } else {
             throw new RuntimeException(" Product not found");
         }
@@ -87,14 +87,14 @@ public class ProduitServiceImpl implements ProduitService {
 
     @Override
     public void deleteProduitByNomWithQuantite(String nom, int quantite) {
-        List<Produit> products = produitRepository.findByNom(nom);
+        List<Produit> products = productRepository.findByNom(nom);
         if (!products.isEmpty()) {
             for (Produit product : products) {
                 if (product.getQuantite() <= quantite) {
-                    produitRepository.deleteById(product.getId());
+                    productRepository.deleteById(product.getId());
                 } else {
                     product.setQuantite(product.getQuantite() - quantite);
-                    produitRepository.save(product);
+                    productRepository.save(product);
                 }
             }
         } else {
@@ -104,21 +104,21 @@ public class ProduitServiceImpl implements ProduitService {
 
     @Override
     public Produit findProduitById(String id) {
-        return produitRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product not exist"));
+        return productRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Product not exist"));
     }
 
     @Override
     public List<Produit> findProduitByCategorie(String categorie) {
-        return produitRepository.findByCategorie(categorie);
+        return productRepository.findByCategorie(categorie);
     }
 
     @Override
     public List<Produit> findProduitByPrix(double prix) {
-        return produitRepository.findByPrix(prix);
+        return productRepository.findByPrix(prix);
     }
 
     @Override
     public List<Produit> listAllProduits() {
-        return produitRepository.findAll();
+        return productRepository.findAll();
     }
 }
