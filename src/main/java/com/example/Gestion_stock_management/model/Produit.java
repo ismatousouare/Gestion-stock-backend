@@ -16,5 +16,5 @@ public class Produit {
     private double prix;
     private int quantite;
     private String categorie;
-    //bbbb
+
 }
