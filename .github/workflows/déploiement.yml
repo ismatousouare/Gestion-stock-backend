@@ -38,8 +38,8 @@ jobs:
         password: "dckr_pat_nQrgsqWl7MfP6O4-nvPfm8LGn40"
 
     - name: Build and start with docker compose
-        run:|
-          docker-compose up --build -d
+      run: |
+        docker-compose up --build -d
  
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
