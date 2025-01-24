@@ -1,5 +1,7 @@
 name: Construire et publier l'image Docker
 
+on : 
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
