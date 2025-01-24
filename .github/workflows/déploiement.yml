@@ -43,9 +43,9 @@ jobs:
         sudo chmod +x /usr/local/bin/docker-compose
         docker-compose --version  # Vérifie l'installation de Docker Compose
 
-    - name: Build and start with docker compose
-      run: |
-        docker-compose up --build
+    #- name: Build and start with docker compose
+      #run: |
+        #docker-compose up --build
  
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
