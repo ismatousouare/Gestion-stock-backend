@@ -53,5 +53,5 @@ jobs:
         context: .
         file: Dockerfile
         push: true
-        tags: ismatou/Gestion-stock-management:Gestion-stock-management_backend_v1
+        tags: ismatou/gestion_stock_management:gestion_stock_management_backend_v1
 
