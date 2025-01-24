@@ -43,15 +43,15 @@ jobs:
         sudo chmod +x /usr/local/bin/docker-compose
         docker-compose --version  # Vérifie l'installation de Docker Compose
 
-    #- name: Build and start with docker compose
-      #run: |
-        #docker-compose up --build
+    - name: Build and start with docker compose
+      run: |
+        docker-compose up --build
  
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: docker-compose.yml
+        file: Dockerfile
         push: true
         tags: ismatou/gestion_stock_management:gestion_stock_management_backend_v1
 
